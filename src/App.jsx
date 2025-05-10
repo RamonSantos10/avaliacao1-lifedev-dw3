@@ -8,6 +8,7 @@ import "./App.css"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import { AuthProvider } from "./context/AuthContext"
 import PrivateRoute from "./components/PrivateRoute"
+import CreatePost from "./pages/CreatePost/CreatePost"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route element={<PrivateRoute />}>
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/post/new" element={<Dashboard />} />
+                  <Route path="/post/new" element={<CreatePost />} />
                 </Route>
               </Routes>
             </div>
