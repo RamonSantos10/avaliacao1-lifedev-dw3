@@ -206,11 +206,11 @@ const Dashboard = () => {
               </div>
 
               {/* Post image */}
-              <div className="relative aspect-square w-full overflow-hidden bg-gray-200">
+              <div className="relative w-full overflow-hidden bg-gray-200 max-h-[600px]">
                 <img
                   src={post.image || "/placeholder.svg"}
                   alt={post.title}
-                  className="h-full w-full object-cover"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     e.target.src = "/placeholder.svg"
                     e.target.onerror = null
