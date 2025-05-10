@@ -8,21 +8,26 @@ import "./App.css"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import { AuthProvider } from "./context/AuthContext"
 import PrivateRoute from "./components/PrivateRoute"
+import PublicRoute from "./components/PublicRoute"
 import CreatePost from "./pages/CreatePost/CreatePost"
 import Post from "./pages/Post/Post"
 
 function App() {
   return (
     <>
-      <div>
+      <div className="flex min-h-screen flex-col">
         <AuthProvider>
           <BrowserRouter>
             <Navbar />
-            <div className="container">
+            <div className="flex-1">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path="/" element={<Home />} />
+                </Route>
+                <Route element={<PublicRoute />}>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                </Route>
                 <Route path="/post/:id" element={<Post />} />
                 <Route element={<PrivateRoute />}>
                   <Route path="/dashboard" element={<Dashboard />} />

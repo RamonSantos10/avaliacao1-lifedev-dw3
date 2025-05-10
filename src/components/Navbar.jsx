@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout()
-    navigate("/")
+    navigate("/login")
   }
 
   const toggleMenu = () => {
@@ -83,7 +83,7 @@ const Navbar = () => {
                   </NavLink>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+                    className="flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
                   >
                     <LogOut className="h-4 w-4" />
                     <span>Sair</span>

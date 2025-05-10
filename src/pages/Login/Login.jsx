@@ -66,12 +66,12 @@ const Login = () => {
             </div>
           </div>
 
-          <form className="mt-6 space-y-6" onSubmit={handlerSubmit}>
-            <div>
+          <form className="mt-6 space-y-6 center" onSubmit={handlerSubmit}>
+            <div className="">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 E-mail
               </label>
-              <div className="mt-1">
+              <div className="">
                 <input
                   id="email"
                   name="email"
@@ -79,7 +79,7 @@ const Login = () => {
                   autoComplete="email"
                   required
                   placeholder="seu@email.com"
-                  className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
+                  className="w-full block appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
@@ -98,7 +98,7 @@ const Login = () => {
                   autoComplete="current-password"
                   required
                   placeholder="••••••••"
-                  className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
+                  className="block w-3/4 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />

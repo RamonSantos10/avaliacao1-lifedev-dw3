@@ -1,11 +1,12 @@
 import { Instagram, Twitter, Linkedin, Github, Heart } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-gray-100 bg-white py-8 text-sm text-gray-500">
-      <div className="container mx-auto px-4">
+    <footer className="border-t border-gray-200 bg-white py-8 text-sm text-gray-500">
+      <div className="mx-auto px-4">
         {/* Main footer content */}
         <div className="mb-6 grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand section */}
@@ -20,24 +21,24 @@ const Footer = () => {
             <h4 className="mb-3 text-sm font-medium text-gray-600">Links Rápidos</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/" className="text-gray-500 transition-colors hover:text-gray-700">
+                <Link to="/" className="text-gray-500 transition-colors hover:text-gray-700">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about" className="text-gray-500 transition-colors hover:text-gray-700">
+                <Link to="/about" className="text-gray-500 transition-colors hover:text-gray-700">
                   Sobre
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="text-gray-500 transition-colors hover:text-gray-700">
+                <Link to="/contact" className="text-gray-500 transition-colors hover:text-gray-700">
                   Contato
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/privacy" className="text-gray-500 transition-colors hover:text-gray-700">
+                <Link to="/privacy" className="text-gray-500 transition-colors hover:text-gray-700">
                   Privacidade
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -46,16 +47,40 @@ const Footer = () => {
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
             <h4 className="mb-3 text-sm font-medium text-gray-600">Conecte-se</h4>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 transition-colors hover:text-gray-700" aria-label="Instagram">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors hover:text-gray-700"
+                aria-label="Instagram"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 transition-colors hover:text-gray-700" aria-label="Twitter">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors hover:text-gray-700"
+                aria-label="Twitter"
+              >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 transition-colors hover:text-gray-700" aria-label="LinkedIn">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors hover:text-gray-700"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 transition-colors hover:text-gray-700" aria-label="GitHub">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors hover:text-gray-700"
+                aria-label="GitHub"
+              >
                 <Github className="h-5 w-5" />
               </a>
             </div>
@@ -63,7 +88,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="mb-6 h-px w-full bg-gray-100"></div>
+        <div className="mb-6 h-px w-full bg-gray-200"></div>
 
         {/* Copyright */}
         <div className="flex flex-col items-center justify-between gap-4 text-center text-xs text-gray-400 md:flex-row md:text-left">
