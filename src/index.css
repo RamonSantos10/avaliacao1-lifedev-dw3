@@ -92,12 +92,12 @@ button[disabled] {
   color: #dc3545;
 }
 
-.container .error {
+.error {
   color: #721c24;
   background-color: #f8d4da;
   border: 1px solid #f8d4da;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
-  align-items: center;
   text-align: center;
+  margin: 10px 0;
 }

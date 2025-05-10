@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { db } from "../firebase/config"
-import { collection, query, orderBy, onSnapshot, where } from "firebase/firestore"
+import { collection, query, orderBy, where, getDocs } from "firebase/firestore"
 
 const useFetchDocuments = (collectionName, search = null, uid = null) => {
   const [documents, setDocuments] = useState([])
@@ -10,41 +10,46 @@ const useFetchDocuments = (collectionName, search = null, uid = null) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    setLoading(true)
+    async function loadData() {
+      setLoading(true)
+      setError(null)
 
-    try {
-      let q
+      try {
+        let q
 
-      // Criar a base da query
-      if (uid) {
-        q = query(
-          collection(db, collectionName),
-          where("uid", "==", uid),
-          orderBy("createdAt", "desc")
-        )
-      } else if (search) {
-        q = query(
-          collection(db, collectionName),
-          where("tags", "array-contains", search),
-          orderBy("createdAt", "desc")
-        )
-      } else {
-        q = query(collection(db, collectionName), orderBy("createdAt", "desc"))
-      }
+        // Criar a base da query
+        if (uid) {
+          // Buscar posts do usuário específico
+          q = query(collection(db, collectionName), where("uid", "==", uid), orderBy("createdAt", "desc"))
+        } else if (search) {
+          // Buscar posts por tag
+          q = query(
+            collection(db, collectionName),
+            where("tags", "array-contains", search),
+            orderBy("createdAt", "desc"),
+          )
+        } else {
+          // Buscar todos os posts
+          q = query(collection(db, collectionName), orderBy("createdAt", "desc"))
+        }
 
-      // Executar a query
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        // Usar getDocs em vez de onSnapshot para evitar problemas de permissão com listeners
+        const querySnapshot = await getDocs(q)
+        const docs = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+
         setDocuments(docs)
+      } catch (error) {
+        console.error("Erro ao buscar documentos:", error)
+        setError(error.message)
+      } finally {
         setLoading(false)
-      })
-
-      return () => unsubscribe()
-    } catch (error) {
-      console.error(error)
-      setError(error.message)
-      setLoading(false)
+      }
     }
+
+    loadData()
   }, [collectionName, search, uid])
 
   return { documents, loading, error }

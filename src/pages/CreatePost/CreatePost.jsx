@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthValue } from "../../context/AuthContext"
-import { useInsertDocument } from "../../hooks/useInsertDocument"
+import { db } from "../../firebase/config"
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import styles from "./CreatePost.module.css"
 
 const CreatePost = () => {
@@ -12,53 +13,61 @@ const CreatePost = () => {
   const [body, setBody] = useState("")
   const [tags, setTags] = useState("")
   const [formError, setFormError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const { user } = useAuthValue()
-  const { insertDocument, response } = useInsertDocument("posts")
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setFormError("")
-
-    // validar URL da imagem
-    try {
-      new URL(image)
-    } catch (error) {
-      setFormError("A imagem precisa ser uma URL válida.")
-      return
-    }
-
-    // criar array de tags
-    const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase())
-
-    // checar todos os valores
-    if (!title || !image || !body || !tags) {
-      setFormError("Por favor, preencha todos os campos!")
-      return
-    }
-
-    const post = {
-      title,
-      image,
-      body,
-      tags: tagsArray,
-      uid: user.uid,
-      createdBy: user.displayName,
-    }
-
-    console.log("Enviando post:", post)
+    setLoading(true)
 
     try {
-      const insertedDocument = await insertDocument(post)
-      console.log("Documento inserido:", insertedDocument)
-
-      if (insertedDocument) {
-        navigate("/dashboard")
+      // Validar URL da imagem
+      try {
+        new URL(image)
+      } catch (error) {
+        setFormError("A imagem precisa ser uma URL válida.")
+        setLoading(false)
+        return
       }
+
+      // Criar array de tags
+      const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase())
+
+      // Checar todos os valores
+      if (!title || !image || !body || !tags) {
+        setFormError("Por favor, preencha todos os campos!")
+        setLoading(false)
+        return
+      }
+
+      // Criar objeto do post
+      const post = {
+        title,
+        image,
+        body,
+        tags: tagsArray,
+        uid: user.uid,
+        createdBy: user.displayName,
+        // Usar serverTimestamp para garantir consistência
+        createdAt: serverTimestamp(),
+      }
+
+      console.log("Enviando post:", post)
+
+      // Adicionar diretamente ao Firestore
+      const docRef = await addDoc(collection(db, "posts"), post)
+      console.log("Post criado com ID:", docRef.id)
+
+      // Redirecionar para o dashboard
+      navigate("/dashboard")
     } catch (error) {
       console.error("Erro ao criar post:", error)
       setFormError("Erro ao criar post: " + error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -110,13 +119,12 @@ const CreatePost = () => {
             value={tags}
           />
         </label>
-        {!response.loading && <button className="btn">Criar post!</button>}
-        {response.loading && (
+        {!loading && <button className="btn">Criar post!</button>}
+        {loading && (
           <button className="btn" disabled>
             Aguarde...
           </button>
         )}
-        {response.error && <p className="error">{response.error}</p>}
         {formError && <p className="error">{formError}</p>}
       </form>
     </div>
