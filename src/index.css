@@ -1,103 +1,67 @@
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-form {
-  max-width: 50%;
-  margin: 0 auto;
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
-}
+@layer components {
+  .btn {
+    @apply bg-black text-center text-white rounded-md w-[120px] font-bold border-none py-2.5 px-4 text-base mx-auto my-6 cursor-pointer transition-colors duration-500 inline-block;
+  }
 
-label span {
-  margin-bottom: .3em;
-  font-weight: bold;
-  text-align: left;
-}
-input,
-textarea {
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #999;
-  padding: .8em 0;
-  background-color: transparent;
-}
+  .btn:hover {
+    @apply bg-gray-400 text-black;
+  }
 
-input::placeholder,
-textarea::placeholder {
-  color: #aaa;
-  font-family: "Montserrat", sans-serif;
-}
+  button[disabled] {
+    @apply text-red-600 bg-red-100;
+  }
 
-.btn {
-  background-color: #000;
-  text-align: center;
-  color: #fff;
-  border-radius: 5px;
-  width: 120px;
-  font-weight: bold;
-  border: none;
-  padding: 10px 15px;
-  font-size: 1em;
-  margin: 25px auto;
-  cursor: pointer;
-  transition: .5s;
-  display: inline-block;
-}
+  .btn.btn-dark {
+    @apply bg-green-700 rounded-none;
+  }
 
-.btn:hover {
-  background-color: #aaa;
-  color: #000;
-}
+  .btn.btn-outline {
+    @apply bg-transparent rounded-none text-black border border-black py-2 px-8;
+  }
 
-button[disabled] {
-  color: #dc3545;
-  background-color: #f8d4da;
-}
+  .btn.btn-outline:hover {
+    @apply bg-black text-white;
+  }
 
-.btn.btn-dark {
-  background-color: #18891b;
-  border-radius: 0;
-}
+  .btn.btn-danger {
+    @apply bg-red-600 border border-red-600;
+  }
 
-.btn.btn-outline {
-  background-color: transparent;
-  border-radius: 0;
-  color: #000;
-  border: 1px solid #000;
-  padding: 7px 30px;
-}
+  .btn.btn-danger:hover {
+    @apply bg-transparent text-red-600;
+  }
 
-.btn.btn-outline:hover {
-  background-color: #000;
-  color: #fff;
-}
+  .error {
+    @apply text-red-800 bg-red-100 border border-red-100 p-2.5 rounded-md;
+  }
 
-.btn.btn-danger {
-  background-color: #dc3545;
-  border: 1px solid #dc3545;
-}
+  form {
+    @apply max-w-[50%] mx-auto;
+  }
 
-.btn.btn-danger:hover {
-  background-color: transparent;
-  color: #dc3545;
-}
+  label {
+    @apply flex flex-col mb-1;
+  }
 
-.error {
-  color: #721c24;
-  background-color: #f8d4da;
-  border: 1px solid #f8d4da;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  margin: 10px 0;
+  label span {
+    @apply mb-[0.3em] font-bold text-left;
+  }
+
+  input,
+  textarea {
+    @apply box-border border-none border-b border-gray-400 py-2 px-0 bg-transparent;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-400 font-["Montserrat"];
+  }
 }

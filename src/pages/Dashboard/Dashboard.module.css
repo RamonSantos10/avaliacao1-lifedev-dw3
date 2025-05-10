@@ -45,6 +45,24 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  .post_image {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .post_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fff;
+  }
   
   .post h3 {
     margin-bottom: 0.2em;
