@@ -1,5 +1,3 @@
-"use client"
-
 import styles from "./Login.module.css"
 import { useEffect, useState } from "react"
 import { useAuthentication } from "../../hooks/useAuthentication"
