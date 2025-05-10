@@ -26,6 +26,7 @@ x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
+dist/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -398,3 +399,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.env
