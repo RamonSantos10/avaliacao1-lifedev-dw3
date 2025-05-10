@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - avaliacaodw-*
 
 jobs:
   build_and_deploy:
@@ -12,15 +13,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
       - name: Instalar dependências
-        run: |
-          npm ci
-          npm run build
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy para Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_STUDY_WORKSPACE_66833 }}"
           channelId: live
           projectId: study-workspace-66833
+    
